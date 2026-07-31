@@ -1,0 +1,12 @@
+.reference/
+opencode.json
+*.zip
+v10nr_clust_public/*
+motifs-v9-nr.flybase-m0.001-o0.0.tbl
+allTFs_dmel.txt
+*.gtf
+*.tsv
+*.cb
+*.tbl
+*.jar
+*.png

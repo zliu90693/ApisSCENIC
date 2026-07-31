@@ -1,0 +1,9 @@
+{
+    "editor.fontFamily": "JetBrainsMonoNL Nerd Font",
+    "terminal.integrated.fontFamily": "JetBrainsMonoNL Nerd Font",
+    "markdown.preview.fontFamily": "JetBrains Mono",
+    "notebook.output.fontFamily": "JetBrainsMonoNL Nerd Font",
+    "editor.codeLensFontFamily": "JetBrainsMonoNL Nerd Font",
+    "editor.inlayHints.fontFamily": "JetBrainsMonoNL Nerd Font",
+    "python.defaultInterpreterPath": "/home/liuzhiyu/Software/miniconda3/envs/create_cistarget_databases/bin/python"
+}
