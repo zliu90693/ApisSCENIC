@@ -16,7 +16,7 @@ Dmel_Amel_Ortho_121 = Dmel_Amel_Ortho[
 ]
 Dmel_Amel_Ortho_121
 # %%
-# fruitfly gene name -> (fruitfly GTF) -> fruitfly gene ID -> (Dmel_Amel_Ortho) -> bee gene ID -> (motif-to-TF tbl) -> bee motif
+# fruitfly gene name in tbl -> (fruitfly GTF) -> fruitfly gene ID -> (Dmel_Amel_Ortho) -> bee gene ID -> (motif-to-TF tbl) -> bee motif
 # %%
 Dmel_gtf = pd.read_csv("./gtf/Drosophila_melanogaster.tsv", sep="\t")
 Dmel_gtf
@@ -146,3 +146,6 @@ bee_cb_df = pd.DataFrame({
 bee_cb_df.to_csv("./metadata/Bee_motif_cb_ids.txt", index=False, header=False)
 Bee_cb_df = pd.read_csv("./metadata/Bee_motif_cb_ids.txt", header=None)
 # %%
+#! 注：到目前为止，确定了motifs-v10-nr.flybase-m0.00001-o0.0.tbl中有蜜蜂同源基因的全部行，得到子表Bee_gene_motif_tbl.tsv。但是，在子表中，并不是全部motif都对应单个.cb文件：#motif_id列与.cb文件前缀交集仅3096个。
+#! 目前将交集中的3096个motif名称保留为Bee_motif_cb_ids.txt。
+#! 接下来，在后续项目中，将对那些“在#motif_id列中出现，但在.cb前缀中未出现”的motif名称进行探索。

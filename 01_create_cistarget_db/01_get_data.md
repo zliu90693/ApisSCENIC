@@ -32,3 +32,7 @@ transter gtf to tsv format:
 gppy txinfo -g Drosophila_melanogaster.gtf > Drosophila_melanogaster.tsv
 gppy txinfo -g Apis_mellifera.gtf > Apis_mellifera.tsv
 ```
+link the annotated h5ad UMI counting matrix:
+```bash
+ln -s /home/liuzhiyu/Projects/neo_caste/anno_cells/Zhang_iScience_2022_Amel/matrix/03_Amel_HYWLLvote.h5ad ./matrix/03_Amel_HYWLLvote.h5ad
+```

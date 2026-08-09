@@ -10,3 +10,5 @@ allTFs_dmel.txt
 *.tbl
 *.jar
 *.png
+*.feather
+*.h5ad
