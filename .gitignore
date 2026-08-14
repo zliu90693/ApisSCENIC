@@ -15,3 +15,4 @@ allTFs_dmel.txt
 *.fasta
 *.feather
 *.bed
+*.fai
