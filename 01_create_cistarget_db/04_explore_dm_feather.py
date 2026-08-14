@@ -46,3 +46,11 @@ import matplotlib.pyplot as plt
 venn3([dm_feather_motif_id_set, cb_ids_set, dm_motif_TF_tbl_motifID_set], set_labels=("feather_motif", "cb_motif", "tbl_motif"))
 plt.show()
 # %%
+
+# # %%
+# dm8_feather = pd.read_feather("./feather/dm6-5kb-upstream-full-tx-11species.mc8nr.genes_vs_motifs.rankings.feather")
+# dm8_feather_motif_id_set = set(dm8_feather["motifs"].to_list())
+# # %%
+# venn3([dm8_feather_motif_id_set, cb_ids_set, dm_motif_TF_tbl_motifID_set], set_labels=("8feather_motif", "cb_motif", "tbl_motif"))
+# plt.show()
+# %%

@@ -12,3 +12,6 @@ allTFs_dmel.txt
 *.png
 *.feather
 *.h5ad
+*.fasta
+*.feather
+*.bed
