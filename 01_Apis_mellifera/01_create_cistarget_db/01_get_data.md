@@ -1,6 +1,6 @@
 ```bash
-conda activate create_cistarget_databases # see ../.env
-cd /home/liuzhiyu/Projects/neo_caste/ApisSCENIC/01_create_cistarget_db
+conda activate create_cistarget_databases # see ../../.env
+cd /home/liuzhiyu/Projects/neo_caste/ApisSCENIC/01_Apis_mellifera/01_create_cistarget_db
 pwd # ...01_create_cistarget_db
 ```
 

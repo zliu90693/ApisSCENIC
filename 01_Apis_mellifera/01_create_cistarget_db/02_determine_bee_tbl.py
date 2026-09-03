@@ -136,16 +136,15 @@ Bee_motif_id_set = set(Bee_gene_motif_tbl["#motif_id"].unique())
 print(len(Bee_motif_id_set & cb_ids_set)) # 3096
 # %%
 # <---
-Bee_cb_interset = Bee_motif_id_set & cb_ids_set
+# Bee_cb_interset = Bee_motif_id_set & cb_ids_set
 
 # %%
 
-bee_cb_df = pd.DataFrame({
-    "bee_cb_id": pd.Series(list(Bee_cb_interset)),
-})
-bee_cb_df.to_csv("./metadata/Bee_motif_cb_ids.txt", index=False, header=False)
-Bee_cb_df = pd.read_csv("./metadata/Bee_motif_cb_ids.txt", header=None)
+# bee_cb_df = pd.DataFrame({
+#     "bee_cb_id": pd.Series(list(Bee_cb_interset)),
+# })
+# bee_cb_df.to_csv("./metadata/Bee_motif_cb_ids.txt", index=False, header=False)
+# Bee_cb_df = pd.read_csv("./metadata/Bee_motif_cb_ids.txt", header=None)
 # %%
 #! 注：到目前为止，确定了motifs-v10-nr.flybase-m0.00001-o0.0.tbl中有蜜蜂同源基因的全部行，得到子表Bee_gene_motif_tbl.tsv。但是，在子表中，并不是全部motif都对应单个.cb文件：#motif_id列与.cb文件前缀交集仅3096个。
-#! 目前将交集中的3096个motif名称保留为Bee_motif_cb_ids.txt。
 #! 接下来，在后续项目中，将对那些“在#motif_id列中出现，但在.cb前缀中未出现”的motif名称进行探索。

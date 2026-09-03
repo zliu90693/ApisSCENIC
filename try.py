@@ -9,7 +9,7 @@ Amel_adata
 # %%
 Amel_gene_set = set(Amel_adata.var["gene_ids"])
 # %%
-Amel_gtf = pd.read_csv("./01_create_cistarget_db/gtf/Apis_mellifera.tsv", sep="\t")
+Amel_gtf = pd.read_csv("./01_Apis_mellifera/01_create_cistarget_db/gtf/Apis_mellifera.tsv", sep="\t")
 Amel_gtf
 # %%
 Amel_gtf_geneid_set = set(Amel_gtf["gene_id"].to_list())

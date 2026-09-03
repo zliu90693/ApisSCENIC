@@ -49,7 +49,7 @@ feather_genes_set.remove("motifs")
 # %%
 import pyranges as pr
 
-Amel_gtf = pr.read_gtf("../../01_create_cistarget_db/gtf/Apis_mellifera.gtf")
+Amel_gtf = pr.read_gtf("../../01_Apis_mellifera/01_create_cistarget_db/gtf/Apis_mellifera.gtf")
 Amel_gtf = Amel_gtf.df
 # Amel_gtf[Amel_gtf["gene_id"].isin(h5ad_genes_set)]["gene_biotype"].unique() # 'protein_coding', 'lncRNA'
 # %%

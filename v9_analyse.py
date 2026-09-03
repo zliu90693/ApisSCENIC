@@ -10,7 +10,7 @@ v9_motif_id_set = set(TF_motif_v9["#motif_id"].unique())
 # %%
 from pathlib import Path
 
-cb_dir = Path("./01_create_cistarget_db/v10nr_clust_public/singletons")
+cb_dir = Path("./01_Apis_mellifera/01_create_cistarget_db/v10nr_clust_public/singletons")
 cb_paths = sorted(cb_dir.glob("*.cb"))
 # 去掉 .cb 后缀，例如 bergman__Kr.cb -> bergman__Kr
 cb_ids = {path.stem for path in cb_paths}

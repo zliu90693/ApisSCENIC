@@ -9,11 +9,11 @@ from matplotlib_venn import venn3
 from matplotlib_venn import venn2
 import matplotlib.pyplot as plt
 # %%
-dm_feather = pd.read_feather("../../01_create_cistarget_db/feather/dm6_v10_clust.genes_vs_motifs.rankings.feather")
+dm_feather = pd.read_feather("../../01_Apis_mellifera/01_create_cistarget_db/feather/dm6_v10_clust.genes_vs_motifs.rankings.feather")
 feather_genes_set = set(dm_feather.columns)
 feather_genes_set.remove("motifs")
 # %%
-dm_GTF = pr.read_gtf("../../01_create_cistarget_db/gtf/Drosophila_melanogaster.gtf").df
+dm_GTF = pr.read_gtf("../../01_Apis_mellifera/01_create_cistarget_db/gtf/Drosophila_melanogaster.gtf").df
 gtf_allgene_set = set(dm_GTF["gene_id"].to_list())
 gtf_allgenename_set = set(dm_GTF["gene_name"].to_list())
 # %%

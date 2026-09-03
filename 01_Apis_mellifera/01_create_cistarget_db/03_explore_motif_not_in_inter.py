@@ -52,6 +52,6 @@ Bee_gene_motif_tbl_only[Bee_gene_motif_tbl_only["#motif_id"].str.startswith("met
 # %%
 Bee_gene_motif_tbl_only.to_csv("./metadata/03_motif_notin_cbs/Bee_gene_motif_tbl_only.tsv", sep="\t", index=False)
 # %%
-#! 到目前为止，我确定了那些“在#motif_id列中出现，但在.cb前缀中未出现”的motif名称，并将其信息（包括motif来源）保存至01_create_cistarget_db/metadata/03_motif_notin_cbs/Bee_gene_motif_tbl_only.tsv
+#! 到目前为止，我确定了那些“在#motif_id列中出现，但在.cb前缀中未出现”的motif名称，并将其信息（包括motif来源）保存至01_Apis_mellifera/01_create_cistarget_db/metadata/03_motif_notin_cbs/Bee_gene_motif_tbl_only.tsv
 
 # %%

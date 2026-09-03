@@ -16,3 +16,4 @@ allTFs_dmel.txt
 *.feather
 *.bed
 *.fai
+*.sif
