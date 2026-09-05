@@ -35,7 +35,7 @@ print(Dmel_gene_motif_tbl_gene_name_set - Dmel_gtf_gene_name_set)
 # query flybase manually
 # gene_name gene_id
 # CG7839    FBgn0036124
-# h         FBgn0001168 (corrected by gpt)
+# h         FBgn0001168 (corrected by gpt, found in the third column of TF-motif tbl)
 # CG4603    FBgn0035593
 # CG9650    FBgn0029939
 # CG2199    FBgn0035213
