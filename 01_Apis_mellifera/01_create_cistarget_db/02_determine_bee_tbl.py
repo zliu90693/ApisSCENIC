@@ -81,6 +81,8 @@ for name, gid in gene_id_fix.items():
     ] = gid
 Dmel_gname_gid
 # %%
+Dmel_gname_gid.to_csv("./metadata/Dmel_gname_gid.tsv", sep="\t")
+# %%
 # link fruitfly gene ID and honeybee gene ID
 Dmel_Amel_Ortho_link = Dmel_Amel_Ortho_121[["Drosophila_melanogaster", "Apis_mellifera"]].rename(columns={"Drosophila_melanogaster": "gene_id"})
 Dmel_Amel_Ortho_link
