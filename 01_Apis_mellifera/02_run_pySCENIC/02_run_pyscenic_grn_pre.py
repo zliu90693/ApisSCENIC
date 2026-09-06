@@ -58,11 +58,53 @@ dm_TF_notin_GTF_set_1found = set(fbgn_annotation_sub["annotation_ID"])
 dm_TF_notin_GTF_set_1notfound = dm_TF_notin_GTF_set - dm_TF_notin_GTF_set_1found
 dm_TF_notin_GTF_set_1notfound
 # %%
-# 手动从 FlyBase 中（重点查看 Also Known As 名称）查询剩余 19 个 TF （即 dm_TF_notin_GTF_set_1notfound）的 gene_id：
+# 手动从 FlyBase 中查询剩余 19 个 TF （即 dm_TF_notin_GTF_set_1notfound）的 gene_id：
+#! 重点查看 FlyBase 中的 Also Known As 名称!!!
 # TF列表中的名称    当前FlyBase符号    FBgn ID
 # Argk  Argk1   FBgn0000116
 # CstF-64   CstF64  FBgn0027841
 # DNApol-iota   Poll    FBgn0037554
 # Ef1beta   eEF1β   FBgn0028737
 # Eip71CD   MsrA    FBgn0000565
-# 
+# Gpdh   Gpdh1   FBgn0001128
+# Ime4  Mettl3  FBgn0039139
+# Mes4  PolE4   FBgn0034726
+# Parp  Parp1  FBgn0010247
+# Pepck  Pepck1 FBgn0003067
+# RpII215  Polr2A   FBgn0003277
+# Scsalpha  Scsα1   FBgn0004888
+# Thiolase  Mtpβ    FBgn0025352
+# e(y)1 Taf9    FBgn0000617
+# eIF-5A  eEF5  FBgn0285952
+# fd64A FoxL1 FBgn0004895
+# h hry FBgn0001168
+# lid   Kdm5    FBgn0031759
+# nos   nanos   FBgn0002962
+# %%
+dm_TF_notin_GTF_set_2found = pd.read_csv("./metadata/TF_gid_manual.csv")
+dm_TF_notin_GTF_set_2found
+# %%
+"""
+至此, 全部 841 个 TF 已确定到 gene_id, 其中 786 个在 GTF 中已确定, 36 个在 fbgn_annotation 中已确定, 19 个通过手动查询 FlyBase 已确定
+"""
+TF_gid_in_GTF = dm_gtf[dm_gtf["gene_name"].isin(dm_TFset)][["gene_name", "gene_id"]].drop_duplicates()
+TF_gid_in_fbgn_annotation = fbgn_annotation_sub[["annotation_ID", "primary_FBgn#"]].rename(columns={"annotation_ID": "gene_name", "primary_FBgn#": "gene_id"})
+TF_gid_in_manual = dm_TF_notin_GTF_set_2found[["TF", "FBgn_ID"]].rename(columns={"TF": "gene_name", "FBgn_ID": "gene_id"})
+TF_gid_all = pd.concat([TF_gid_in_GTF, TF_gid_in_fbgn_annotation, TF_gid_in_manual], ignore_index=True)
+TF_gid_all
+# %%
+
+# %%
+gid_dup_8 = {"FBgn0032130", "FBgn0036126", "FBgn0032430", "FBgn0004895", "FBgn0032016", "FBgn0039139", "FBgn0038549", "FBgn0030687"}
+
+# %%
+dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
+    sep="\t",)
+print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1notfound)]) # 除了nos外都是missing，但是HY的果蝇nos竟然和中蜂有同源基因？
+# %%
+print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1found)]) # 全部为missing
+
+#? 我的OrthoFinder步骤是否存在问题？(指的是nos的同源基因在HY的结果中找得到但在我的OrthoFinder结果中找不到) 
+#! 或许与Acer在OrthoFinder中默认使用protein_id而不是gene_id有关
+#? HY采用了怎样的标准处理那些找不到gene_id的TF？手动核对还是直接丢弃了？
+# %%

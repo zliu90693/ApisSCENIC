@@ -1,5 +1,5 @@
 """
-仿照分析HY数据中的做法, 看看asertlab中果蝇的feather保留了GTF中的哪些基因
+仿照01_choose_gene_in_cistarget.py, 看看asertlab中果蝇的feather保留了GTF中的哪些基因
 """
 # %%
 import scanpy as sc

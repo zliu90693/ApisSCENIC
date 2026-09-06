@@ -24,10 +24,10 @@ wget -O "./metadata/allTFs_dmel.txt" "https://resources.aertslab.org/cistarget/t
 Obtain the gene_name-gene_id mapping file to retrieve the gene_id corresponding to the TF name in allTFs_dmel.txt that does not appear in the GTF.
 ```bash
 wget -O "./metadata/fbgn_annotation_ID_fb_2026_02.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/genes/fbgn_annotation_ID_fb_2026_02.tsv.gz"
-wget -O "./metadata/gene_map_table_fb_2026_02.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/genes/gene_map_table_fb_2026_02.tsv.gz"
+# wget -O "./metadata/gene_map_table_fb_2026_02.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/genes/gene_map_table_fb_2026_02.tsv.gz"
 
 gunzip "./metadata/fbgn_annotation_ID_fb_2026_02.tsv.gz"
-gunzip "./metadata/gene_map_table_fb_2026_02.tsv.gz"
+# gunzip "./metadata/gene_map_table_fb_2026_02.tsv.gz"
 ```
 
 Link the homologous genes of bees and fruit flies obtained through OrthoFinder in a previous project to this project.
