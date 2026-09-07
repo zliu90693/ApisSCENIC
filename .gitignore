@@ -18,3 +18,5 @@ allTFs_dmel.txt
 *.fai
 *.sif
 *.faa
+*.gz
+*.fa
