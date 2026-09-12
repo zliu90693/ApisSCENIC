@@ -11,17 +11,17 @@ Dmel TF list -> (?) -> OrthoFinder Dmel gene_id -> OrthoFinder Amel gene_id (Ame
 dm_TFlist = pd.read_csv("./metadata/allTFs_dmel.txt", header=None)
 dm_TFset = set(dm_TFlist[0].to_list())
 # %%
-dm_am_ortho = pd.read_csv("./Orthologues_Drosophila_melanogaster/Drosophila_melanogaster__v__Apis_mellifera.tsv", sep="\t")
-dm_am_ortho
+# dm_am_ortho = pd.read_csv("./Orthologues_Drosophila_melanogaster/Drosophila_melanogaster__v__Apis_mellifera.tsv", sep="\t")
+# dm_am_ortho
 # %%
-dm_am_ortho_121 = dm_am_ortho[
-    ~dm_am_ortho["Drosophila_melanogaster"].str.contains(",", na=False)
-    & ~dm_am_ortho["Apis_mellifera"].str.contains(",", na=False)
-]
-dm_am_ortho_121
+# dm_am_ortho_121 = dm_am_ortho[
+#     ~dm_am_ortho["Drosophila_melanogaster"].str.contains(",", na=False)
+#     & ~dm_am_ortho["Apis_mellifera"].str.contains(",", na=False)
+# ]
+# dm_am_ortho_121
 # %%
-dm_am_ortho_121_dmset = set(dm_am_ortho_121["Drosophila_melanogaster"].to_list())
-print(len(dm_am_ortho_121_dmset & dm_TFset)) # 0
+# dm_am_ortho_121_dmset = set(dm_am_ortho_121["Drosophila_melanogaster"].to_list())
+# print(len(dm_am_ortho_121_dmset & dm_TFset)) # 0
 #! 果蝇的TF list对应的并非果蝇的gene_id，有可能是gene_name，需要验证
 # %%
 
