@@ -156,14 +156,6 @@ TF_gid_all_beegid
 TF_gid_all_beegid = TF_gid_all_beegid[~TF_gid_all_beegid["Apis_mellifera"].isna()]
 TF_gid_all_beegid.to_csv("./metadata/TF_flygid_beegid.tsv", sep="\t")
 # %%
-#? 我最终找到了多少个西方蜜蜂对应的TF？
+#? 我最终找到了多少个东方蜜蜂对应的TF？
 TF_gid_all_beegid["Apis_mellifera"].nunique() # 560
-# %%
-#? 前人找到了多少个西方蜜蜂对应的TF？
-dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
-    sep="\t",)
-dmel_acer_TF_HY = dmel_acer_TF_HY[~dmel_acer_TF_HY["acer"].isna()]
-dmel_acer_TF_HY["acer"].nunique() # 540
-# %%
-TF_gid_all_beegid["Apis_mellifera"].drop_duplicates().to_csv("./metadata/TF_bee.txt", header=False, index=False)
 # %%

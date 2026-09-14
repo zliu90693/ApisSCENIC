@@ -23,5 +23,9 @@ wget -O "./metadata/allTFs_dmel.txt" "https://resources.aertslab.org/cistarget/t
 ```
 Link the homologous genes of bees and fruit flies obtained through OrthoFinder in a previous project to this project.
 ```bash
-ln -s /home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Jun15/Orthologues/Orthologues_Drosophila_melanogaster .
+ln -sf "/home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Sep13/Orthologues/Orthologues_Drosophila_melanogaster" .
+```
+The mapping between *Drosophila* TFs and `gene_id`s has already been determined in `01_Apis_mellifera/02_run_pySCENIC`, so there is no need to repeat the calculation:
+```bash
+ln -sf "/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/01_Apis_mellifera/02_run_pySCENIC/metadata/TF_flygid.tsv" "./metadata/TF_flygid.tsv"
 ```

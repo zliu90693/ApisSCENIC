@@ -17,14 +17,33 @@ dm_ac_ortho_121 = dm_ac_ortho[
 ]
 dm_ac_ortho_121_dmset = set(dm_ac_ortho_121["Drosophila_melanogaster"].to_list())
 
-dm_gtf = pd.read_csv("../01_create_cistarget_db/gtf/Drosophila_melanogaster.tsv", sep="\t")
-dm_gtf_gname_set = set(dm_gtf["gene_name"].to_list())
+# dm_gtf = pd.read_csv("../01_create_cistarget_db/gtf/Drosophila_melanogaster.tsv", sep="\t")
+# dm_gtf_gname_set = set(dm_gtf["gene_name"].to_list())
 # %%
-#! 根据 01_Apis_mellifera/02_run_pySCENIC/02_run_pyscenic_grn_pre.py，可知 Dmel TF list 与 GTF 中的 gene_id 列完全不对应，
-#! 与 gene_name 列部分对应，因此或许需要手动处理
-print(len(dm_TFset)) # 841
-print(len(dm_gtf_gname_set)) # 23769
-print(len(dm_TFset & dm_gtf_gname_set)) # 786
+#! 果蝇 TF 与 gene_id 的对应关系已在 01_Apis_mellifera/02_run_pySCENIC 中求得，无需重复计算：
+TF_gid_all = pd.read_csv("./metadata/TF_flygid.tsv", sep="\t")[["gene_name", "gene_id"]]
+TF_gid_all
 # %%
-print(dm_TFset - dm_gtf_gname_set)
+dm_ac_link = dm_ac_ortho_121[["Drosophila_melanogaster", "Apis_cerana"]].rename(columns={"Drosophila_melanogaster": "gene_id"})
+# %%
+# TF_gid_all_beegid: 三列，果蝇TF-果蝇gid-蜜蜂gid
+TF_gid_all_beegid = TF_gid_all.merge( 
+    dm_ac_link, on="gene_id", how="left"
+)
+# %%
+TF_gid_all_beegid
+# %%
+TF_gid_all_beegid = TF_gid_all_beegid[~TF_gid_all_beegid["Apis_cerana"].isna()]
+TF_gid_all_beegid.to_csv("./metadata/TF_flygid_beegid.tsv", sep="\t")
+# %%
+#? 我最终找到了多少个西方蜜蜂对应的TF？
+TF_gid_all_beegid["Apis_cerana"].nunique() # 567
+# %%
+#? 前人找到了多少个西方蜜蜂对应的TF？
+dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
+    sep="\t",)
+dmel_acer_TF_HY = dmel_acer_TF_HY[~dmel_acer_TF_HY["acer"].isna()]
+dmel_acer_TF_HY["acer"].nunique() # 540
+# %%
+TF_gid_all_beegid["Apis_cerana"].drop_duplicates().to_csv("./metadata/TF_bee.txt", header=False, index=False)
 # %%
