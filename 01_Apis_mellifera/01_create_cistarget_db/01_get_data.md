@@ -11,7 +11,7 @@ rm v10nr_clust_public.zip
 ```
 Link the homologous genes of bees and fruit flies obtained through OrthoFinder in a previous project to this project.
 ```bash
-ln -s /home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Jun15/Orthologues/Orthologues_Drosophila_melanogaster .
+ln -sf /home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Sep13/Orthologues/Orthologues_Drosophila_melanogaster .
 ls Orthologues_Drosophila_melanogaster 
 # Drosophila_melanogaster__v__Aedes_aegypti.tsv      Drosophila_melanogaster__v__Apis_mellifera.tsv     Drosophila_melanogaster__v__Camponotus_floridanus.tsv  Drosophila_melanogaster__v__Lasioglossum_albipes.tsv
 # Drosophila_melanogaster__v__Anopheles_gambiae.tsv  Drosophila_melanogaster__v__Bombus_terrestris.tsv  Drosophila_melanogaster__v__Ceratina_calcarata.tsv     Drosophila_melanogaster__v__Lasioglossum_zephyrus.tsv

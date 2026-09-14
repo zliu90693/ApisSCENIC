@@ -52,8 +52,8 @@ for cell in Dmel_Amel_Ortho.iloc[:, 1].dropna():
         if gene:
             Dmel_Amel_Ortho_Dmel_set.add(gene)
 print(len(Dmel_gtf_gene_id_set)) # 24254
-print(len(Dmel_Amel_Ortho_Dmel_set)) # 9330
-print(len((Dmel_gtf_gene_id_set & Dmel_Amel_Ortho_Dmel_set))) # 9330
+print(len(Dmel_Amel_Ortho_Dmel_set)) # 9376
+print(len((Dmel_gtf_gene_id_set & Dmel_Amel_Ortho_Dmel_set))) # 9376
 # "gene_id" column in Dmel_gtf corresponds to the Drosophila_melanogaster column in Dmel_Amel_Ortho.
 # %%
 # link fruitfly gene name and fruitfly gene ID
@@ -96,7 +96,7 @@ Dmel_gname_gid_beegid = Dmel_gname_gid_beegid[~Dmel_gname_gid_beegid["Amel_gene_
 Dmel_gname_gid_beegid
 # %%
 Dmel_gname_gid_beegid.to_csv("./metadata/Dmel_gname_gid_beegid.tsv", sep="\t")
-# 394 bee genes have motifs in Dmel_gene_motif_tbl
+# 401 bee genes have motifs in Dmel_gene_motif_tbl
 # %%
 # get bee motifs
 Dmel_gname_beegid = Dmel_gname_gid_beegid[["gene_name", "Amel_gene_id"]]
