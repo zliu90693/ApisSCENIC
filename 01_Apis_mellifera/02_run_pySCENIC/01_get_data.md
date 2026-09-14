@@ -25,13 +25,14 @@ Obtain the gene_name-gene_id mapping file to retrieve the gene_id corresponding 
 ```bash
 wget -O "./metadata/fbgn_annotation_ID_fb_2026_02.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/genes/fbgn_annotation_ID_fb_2026_02.tsv.gz"
 # wget -O "./metadata/gene_map_table_fb_2026_02.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/genes/gene_map_table_fb_2026_02.tsv.gz"
+wget -O "./metadata/fb_synonym_fb_2026_03.tsv.gz" "https://s3ftp.flybase.org/releases/current/precomputed_files/synonyms/fb_synonym_fb_2026_03.tsv.gz"
 
 gunzip "./metadata/fbgn_annotation_ID_fb_2026_02.tsv.gz"
 # gunzip "./metadata/gene_map_table_fb_2026_02.tsv.gz"
+gunzip "./metadata/fb_synonym_fb_2026_03.tsv.gz"
 ```
 
 Link the homologous genes of bees and fruit flies obtained through OrthoFinder in a previous project to this project.
 ```bash
-ln -s /home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Jun15/Orthologues/Orthologues_Drosophila_melanogaster .
+ln -s /home/liuzhiyu/Projects/neo_caste/Find_Ortholog/primary_transcripts/OrthoFinder/Results_Sep13/Orthologues/Orthologues_Drosophila_melanogaster .
 ```
-

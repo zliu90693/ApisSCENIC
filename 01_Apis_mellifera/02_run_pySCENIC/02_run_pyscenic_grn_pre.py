@@ -57,9 +57,29 @@ fbgn_annotation_sub.shape # (36, 6) 共识别出了 55 个 TF 名称中的 36 �
 dm_TF_notin_GTF_set_1found = set(fbgn_annotation_sub["annotation_ID"])
 dm_TF_notin_GTF_set_1notfound = dm_TF_notin_GTF_set - dm_TF_notin_GTF_set_1found
 dm_TF_notin_GTF_set_1notfound
+
 # %%
-# 手动从 FlyBase 中查询剩余 19 个 TF （即 dm_TF_notin_GTF_set_1notfound）的 gene_id：
-#! 重点查看 FlyBase 中的 Also Known As 名称!!!
+#! 处理剩余 19 个 TF （即 dm_TF_notin_GTF_set_1notfound）
+fb_synonym = pd.read_csv("./metadata/fb_synonym_fb_2026_03.tsv", sep="\t", skiprows=5)
+fb_synonym
+# %%
+fb_synonym_sub = fb_synonym[["##primary_FBid", "symbol_synonym(s)"]]
+fb_synonym_sub = fb_synonym_sub[~fb_synonym_sub["symbol_synonym(s)"].isna()]
+fb_synonym_sub
+# %%
+fb_synonym_sub["symbol_synonym(s)"] = fb_synonym_sub["symbol_synonym(s)"].str.split("|")
+fb_synonym_sub = fb_synonym_sub.explode("symbol_synonym(s)").reset_index(drop=True)
+# %%
+fb_synonym_sub_not_found = fb_synonym_sub[fb_synonym_sub["symbol_synonym(s)"].isin(dm_TF_notin_GTF_set_1notfound)]
+fb_synonym_sub_not_found["symbol_synonym(s)"].nunique() # 19, 符合预期
+# %%
+fb_synonym_sub_not_found.to_csv("./metadata/dm_TF_notin_GTF_set_1notfound_19.tsv", sep="\t")
+# %%
+# 由于 ./metadata/dm_TF_notin_GTF_set_1notfound_19.tsv 中有部分名称重复，因此将参考Flybase手动对重复名称进行去除
+# ./metadata/dm_TF_notin_GTF_set_1notfound_19.tsv 中 15 条无重复，4 条（Pepck、RpII215、h、nos）存在同义词歧义，Pepck1 为主型 PEPCK、RpII215 即最大亚基 Polr2A、h 为 bHLH 的 hairy 而非 Hairless、nos 为 nanos 而非一氧化氮合酶。
+# 手动修正后的表储存在 ./metadata/dm_TF_notin_GTF_set_1notfound_19_corrected.tsv
+
+#! 之前使用Flybase辅助查询的记录，重点查看 FlyBase 中的 Also Known As 名称!!!
 # TF列表中的名称    当前FlyBase符号    FBgn ID
 # Argk  Argk1   FBgn0000116
 # CstF-64   CstF64  FBgn0027841
@@ -80,8 +100,11 @@ dm_TF_notin_GTF_set_1notfound
 # h hry FBgn0001168
 # lid   Kdm5    FBgn0031759
 # nos   nanos   FBgn0002962
+
 # %%
-dm_TF_notin_GTF_set_2found = pd.read_csv("./metadata/TF_gid_manual.csv")
+
+# %%
+dm_TF_notin_GTF_set_2found = pd.read_csv("./metadata/dm_TF_notin_GTF_set_1notfound_19_corrected.tsv", sep="\t")
 dm_TF_notin_GTF_set_2found
 # %%
 """
@@ -89,22 +112,58 @@ dm_TF_notin_GTF_set_2found
 """
 TF_gid_in_GTF = dm_gtf[dm_gtf["gene_name"].isin(dm_TFset)][["gene_name", "gene_id"]].drop_duplicates()
 TF_gid_in_fbgn_annotation = fbgn_annotation_sub[["annotation_ID", "primary_FBgn#"]].rename(columns={"annotation_ID": "gene_name", "primary_FBgn#": "gene_id"})
-TF_gid_in_manual = dm_TF_notin_GTF_set_2found[["TF", "FBgn_ID"]].rename(columns={"TF": "gene_name", "FBgn_ID": "gene_id"})
+TF_gid_in_manual = dm_TF_notin_GTF_set_2found[["symbol_synonym(s)", "##primary_FBid"]].rename(columns={"symbol_synonym(s)": "gene_name", "##primary_FBid": "gene_id"})
 TF_gid_all = pd.concat([TF_gid_in_GTF, TF_gid_in_fbgn_annotation, TF_gid_in_manual], ignore_index=True)
 TF_gid_all
 # %%
+TF_gid_all.to_csv("./metadata/TF_flygid.tsv", sep="\t")
+# %%
+#? TF_gid_all 的 gene_id 中有重复名称吗？如果有，有多少？
+(TF_gid_all["gene_id"].value_counts() > 1).sum() # 8, 但重复似乎是正常现象
+# %%
 
 # %%
-gid_dup_8 = {"FBgn0032130", "FBgn0036126", "FBgn0032430", "FBgn0004895", "FBgn0032016", "FBgn0039139", "FBgn0038549", "FBgn0030687"}
-
+# dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
+#     sep="\t",)
+# print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1notfound)]) # 除了nos外都是missing，但是HY的果蝇nos竟然和中蜂有同源基因？
 # %%
-dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
-    sep="\t",)
-print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1notfound)]) # 除了nos外都是missing，但是HY的果蝇nos竟然和中蜂有同源基因？
-# %%
-print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1found)]) # 全部为missing
+# print(dmel_acer_TF_HY[dmel_acer_TF_HY["dmel"].isin(dm_TF_notin_GTF_set_1found)]) # 全部为missing
 
 #? 我的OrthoFinder步骤是否存在问题？(指的是nos的同源基因在HY的结果中找得到但在我的OrthoFinder结果中找不到) 
 #! 或许与Acer在OrthoFinder中默认使用protein_id而不是gene_id有关
 #? HY采用了怎样的标准处理那些找不到gene_id的TF？手动核对还是直接丢弃了？
+# %%
+#! 根据果蝇-蜜蜂一对一直系同源基因，获取蜜蜂的TF list
+dm_am_ortho = pd.read_csv("./Orthologues_Drosophila_melanogaster/Drosophila_melanogaster__v__Apis_mellifera.tsv", sep="\t")
+dm_am_ortho
+# %%
+dm_am_ortho_121 = dm_am_ortho[
+    ~dm_am_ortho["Drosophila_melanogaster"].str.contains(",", na=False)
+    & ~dm_am_ortho["Apis_mellifera"].str.contains(",", na=False)
+]
+dm_am_ortho_121
+# %%
+dm_am_link = dm_am_ortho_121[["Drosophila_melanogaster", "Apis_mellifera"]].rename(columns={"Drosophila_melanogaster": "gene_id"})
+# %%
+# TF_gid_all_beegid: 三列，果蝇TF-果蝇gid-蜜蜂gid
+TF_gid_all_beegid = TF_gid_all.merge( 
+    dm_am_link, on="gene_id", how="left"
+)
+# %%
+TF_gid_all_beegid
+# %%
+# TF_gid_all_beegid: 三列，果蝇TF-果蝇gid-蜜蜂gid（去重后）
+TF_gid_all_beegid = TF_gid_all_beegid[~TF_gid_all_beegid["Apis_mellifera"].isna()]
+TF_gid_all_beegid.to_csv("./metadata/TF_flygid_beegid.tsv", sep="\t")
+# %%
+#? 我最终找到了多少个西方蜜蜂对应的TF？
+TF_gid_all_beegid["Apis_mellifera"].nunique() # 560
+# %%
+#? 前人找到了多少个西方蜜蜂对应的TF？
+dmel_acer_TF_HY = pd.read_csv("/home/liuzhiyu/Projects/neo_caste/ApisSCENIC/.reference/data_from_LZU/GRN/allTFs_dmel_acer.txt", encoding="utf-16",
+    sep="\t",)
+dmel_acer_TF_HY = dmel_acer_TF_HY[~dmel_acer_TF_HY["acer"].isna()]
+dmel_acer_TF_HY["acer"].nunique() # 540
+# %%
+TF_gid_all_beegid["Apis_mellifera"].drop_duplicates().to_csv("./metadata/TF_bee.txt", header=False, index=False)
 # %%
